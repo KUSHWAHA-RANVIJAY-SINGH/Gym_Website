@@ -28,6 +28,15 @@ app.use(cors());
 app.use(express.json());
 app.use('/receipts', express.static(path.join(__dirname, 'public/receipts')));
 
+// Health Check & Welcome Message
+app.get('/', (req, res) => {
+  res.json({ message: "Welcome to Gym Management System API", status: "Running", version: "1.0.0" });
+});
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: "OK", uptime: process.uptime(), timestamp: new Date() });
+});
+
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/members', require('./routes/members'));
