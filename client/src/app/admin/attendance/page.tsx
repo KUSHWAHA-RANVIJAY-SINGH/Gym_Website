@@ -196,12 +196,20 @@ export default function AttendanceDashboard() {
                  <motion.div key="history" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
                       <h3 className="text-2xl font-black">Attendance History</h3>
-                      <input 
-                        type="date" 
-                        value={historyDate}
-                        onChange={(e) => setHistoryDate(e.target.value)}
-                        className="bg-black border border-zinc-800 rounded-xl px-5 py-3 text-white focus:border-rose-600 outline-none transition-all font-mono"
-                      />
+                      <div className="flex items-center gap-4">
+                        <input 
+                          type="date" 
+                          value={historyDate}
+                          onChange={(e) => setHistoryDate(e.target.value)}
+                          className="bg-black border border-zinc-800 rounded-xl px-5 py-3 text-white focus:border-rose-600 outline-none transition-all font-mono"
+                        />
+                        <button 
+                          onClick={() => window.open(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/attendance/report/monthly?month=${historyDate.slice(0, 7)}`, '_blank')}
+                          className="px-5 py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(244,63,94,0.3)] hover:shadow-[0_0_20px_rgba(244,63,94,0.5)] flex items-center gap-2"
+                        >
+                          <History className="w-5 h-5" /> Download PDF
+                        </button>
+                      </div>
                    </div>
                    {renderTable(historyFeed, 'attendance')}
                  </motion.div>

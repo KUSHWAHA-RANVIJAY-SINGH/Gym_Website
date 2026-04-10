@@ -35,7 +35,7 @@ export default function CheckinPage() {
     
     try {
       const deviceInfo = navigator.userAgent;
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/attendance/checkin-qr`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/attendance/checkin-qr`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ gymId, identifier, deviceInfo, deviceId })

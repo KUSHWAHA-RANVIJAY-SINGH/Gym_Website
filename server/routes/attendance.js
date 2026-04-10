@@ -182,4 +182,66 @@ router.get('/retention', async (req, res) => {
   }
 });
 
+// Download Monthly PDF Report
+const PDFDocument = require('pdfkit');
+router.get('/report/monthly', async (req, res) => {
+  const { month } = req.query; // Format expected: YYYY-MM
+  if (!month) return res.status(400).json({ message: 'Month string (YYYY-MM) is required' });
+
+  try {
+    const startDate = `${month}-01`;
+    const endDate = `${month}-31`; // A simple string gt/lt works for lexicographical YYYY-MM-DD
+
+    const records = await Attendance.find({
+      date: { $gte: startDate, $lte: endDate }
+    }).populate('memberId', 'name phone').sort({ date: 1, timestamp: 1 });
+
+    const doc = new PDFDocument({ margin: 50 });
+    let filename = `Attendance_Report_${month}.pdf`;
+    
+    res.setHeader('Content-disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-type', 'application/pdf');
+
+    doc.pipe(res);
+
+    // Header
+    doc.fontSize(20).text('Monthly Attendance Report', { align: 'center' });
+    doc.fontSize(12).fillColor('gray').text(`Month: ${month}`, { align: 'center' });
+    doc.moveDown(2);
+
+    // Table Header
+    doc.fillColor('black').fontSize(12).font('Helvetica-Bold');
+    doc.text('Date', 50, doc.y, { continued: true, width: 100 });
+    doc.text('Time', 150, doc.y, { continued: true, width: 100 });
+    doc.text('Member Name', 250, doc.y, { continued: true, width: 200 });
+    doc.text('Phone', 450, doc.y);
+    doc.moveDown(0.5);
+    
+    doc.moveTo(50, doc.y).lineTo(550, doc.y).stroke();
+    doc.moveDown(0.5);
+
+    doc.font('Helvetica');
+    // Table Rows
+    records.forEach(r => {
+      const h = doc.y;
+      if (h > 700) doc.addPage();
+      
+      const timeStr = new Date(r.timestamp).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' });
+      const name = r.memberId ? r.memberId.name : 'Unknown';
+      const phone = r.memberId ? r.memberId.phone : 'Unknown';
+
+      doc.text(r.date, 50, doc.y, { continued: true, width: 100 });
+      doc.text(timeStr, 150, doc.y, { continued: true, width: 100 });
+      doc.text(name, 250, doc.y, { continued: true, width: 200 });
+      doc.text(phone, 450, doc.y);
+      doc.moveDown(0.5);
+    });
+
+    doc.end();
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;

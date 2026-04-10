@@ -44,6 +44,8 @@ app.use('/api/attendance', require('./routes/attendance'));
 app.use('/api/expenses', require('./routes/expenses'));
 app.use('/api/dashboard', require('./routes/dashboard'));
 app.use('/api/settings', require('./routes/settings'));
+app.use('/api/inventory', require('./routes/inventory'));
+app.use('/api/member-portal', require('./routes/memberPortal'));
 
 // Database Connection
 mongoose.set('bufferCommands', false);

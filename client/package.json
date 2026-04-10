@@ -21,6 +21,7 @@
     "react-qr-code": "^2.0.18",
     "react-qr-reader": "^3.0.0-beta-1",
     "react-qr-scanner": "latest",
+    "recharts": "^3.8.1",
     "socket.io-client": "^4.8.3",
     "tailwind-merge": "latest"
   },

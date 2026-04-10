@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Users, TrendingUp, AlertCircle, Calendar, Loader2 } from 'lucide-react';
 import { api } from '@/lib/api';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
 export default function Dashboard() {
   const [data, setData] = useState<any>(null);
@@ -57,6 +58,39 @@ export default function Dashboard() {
         ))}
       </div>
 
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="p-8 bg-zinc-950 border border-zinc-900 rounded-2xl">
+          <h3 className="text-xl font-bold mb-6">Revenue vs Expenses</h3>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data?.chartData || []}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
+                <XAxis dataKey="month" stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(val: number) => `₹${val/1000}k`} />
+                <RechartsTooltip contentStyle={{ backgroundColor: '#18181b', borderColor: '#27272a', borderRadius: '8px' }} itemStyle={{ color: '#e4e4e7' }} />
+                <Line type="monotone" dataKey="revenue" stroke="#10b981" strokeWidth={3} dot={{ r: 4, fill: '#10b981' }} activeDot={{ r: 6 }} name="Revenue" />
+                <Line type="monotone" dataKey="expenses" stroke="#f43f5e" strokeWidth={3} dot={{ r: 4, fill: '#f43f5e' }} activeDot={{ r: 6 }} name="Expenses" />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+        <div className="p-8 bg-zinc-950 border border-zinc-900 rounded-2xl">
+          <h3 className="text-xl font-bold mb-6">Peak Hours Attendance</h3>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={data?.peakHoursData || []}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
+                <XAxis dataKey="time" stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} />
+                <RechartsTooltip cursor={{ fill: '#27272a', opacity: 0.4 }} contentStyle={{ backgroundColor: '#18181b', borderColor: '#27272a', borderRadius: '8px' }} />
+                <Bar dataKey="count" fill="#3b82f6" radius={[4, 4, 0, 0]} name="Check-ins" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
+
       {/* Recent Activity / Alerts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="p-8 bg-zinc-950 border border-zinc-900 rounded-2xl">
@@ -77,7 +111,13 @@ export default function Dashboard() {
                       <p className="text-xs text-zinc-500">Expires: {new Date(member.expiryDate).toLocaleDateString()}</p>
                     </div>
                   </div>
-                  <button className="px-4 py-2 bg-rose-600/10 text-rose-600 text-xs font-bold rounded-lg hover:bg-rose-600 hover:text-white transition-all">
+                  <button 
+                    onClick={() => {
+                        const text = `Hi ${member.name}, this is a friendly reminder from the gym that your membership expires on ${new Date(member.expiryDate).toLocaleDateString()}. Please renew it to continue your workouts!`;
+                        window.open(`https://wa.me/${member.phone}?text=${encodeURIComponent(text)}`, '_blank');
+                    }}
+                    className="px-4 py-2 bg-rose-600/10 text-rose-600 text-xs font-bold rounded-lg hover:bg-rose-600 hover:text-white transition-all"
+                  >
                     REMIND
                   </button>
                 </div>

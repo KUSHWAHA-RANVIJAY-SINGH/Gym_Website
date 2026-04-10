@@ -17,7 +17,14 @@ const memberSchema = new mongoose.Schema({
     type: String, 
     enum: ['Active', 'Expired', 'Pending'], 
     default: 'Active' 
-  }
+  },
+  workoutPlan: { type: String, default: '' },
+  dietPlan: { type: String, default: '' },
+  progressHistory: [{
+    date: { type: String }, // YYYY-MM-DD
+    weight: { type: Number }, // in kg
+    notes: { type: String }
+  }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Member', memberSchema);
