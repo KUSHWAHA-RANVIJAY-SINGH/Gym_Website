@@ -1,28 +1,18 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { CheckCircle2, XCircle, Camera, Loader2 } from 'lucide-react';
+import { Scanner } from '@yudiel/react-qr-scanner';
 
 export default function ScannerPage() {
   const [scanResult, setScanResult] = useState<any>(null);
   const [error, setError] = useState<string>('');
   const [isScanning, setIsScanning] = useState(false);
   const [loading, setLoading] = useState(false);
-  
-  // We'll use a simple HTML5 input capture as fallback or native react-qr-reader
-  // Since react-qr-reader has SSR issues, we conditionally render or use a dynamic approach.
-  const [QrReader, setQrReader] = useState<any>(null);
 
-  useEffect(() => {
-    // Dynamic import to avoid SSR issues with react-qr-reader
-    import('react-qr-reader').then((module) => {
-      setQrReader(() => module.QrReader);
-    });
-  }, []);
-
-  const handleScan = async (result: any, error: any) => {
-    if (result && !loading && isScanning) {
-      const qrCodeString = result?.text || result;
+  const handleScan = async (result: any) => {
+    if (result && result[0]?.rawValue && !loading && isScanning) {
+      const qrCodeString = result[0].rawValue;
       setLoading(true);
       setIsScanning(false);
       
@@ -50,7 +40,7 @@ export default function ScannerPage() {
         setScanResult(null);
       } finally {
         setLoading(false);
-        // Auto reset after 3 seconds
+        // Auto reset after 5 seconds
         setTimeout(() => {
           setScanResult(null);
           setIsScanning(true);
@@ -110,16 +100,20 @@ export default function ScannerPage() {
             ) : (
               <div className="w-full max-w-md aspect-square bg-black rounded-2xl overflow-hidden border-2 border-rose-600 relative">
                 <div className="absolute inset-0 border-[6px] border-rose-600/20 z-10 pointer-events-none"></div>
-                {QrReader ? (
-                  <QrReader
-                    onResult={handleScan}
-                    constraints={{ facingMode: 'environment' }}
-                    containerStyle={{ width: '100%', height: '100%' }}
-                    videoStyle={{ objectFit: 'cover' }}
-                  />
-                ) : (
-                  <div className="flex items-center justify-center w-full h-full text-zinc-500">Loading camera...</div>
-                )}
+                
+                <Scanner
+                  onScan={handleScan}
+                  onError={(err: any) => setError(err?.message || 'Camera error')}
+                  styles={{
+                    container: { width: '100%', height: '100%' },
+                    video: { objectFit: 'cover', width: '100%', height: '100%' }
+                  }}
+                  components={{
+                    torch: true,
+                  }}
+                  allowMultiple={false}
+                />
+
                 <div className="absolute inset-x-0 top-1/2 h-0.5 bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,1)] animate-[scan_2s_ease-in-out_infinite]"></div>
               </div>
             )}
