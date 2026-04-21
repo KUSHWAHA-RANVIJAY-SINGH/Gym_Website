@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Package, Plus, ShoppingCart, Loader2, AlertTriangle, Box } from 'lucide-react';
 import { api } from '@/lib/api';
 
