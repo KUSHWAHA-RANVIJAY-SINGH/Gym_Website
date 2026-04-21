@@ -21,8 +21,8 @@ const transformations: Transformation[] = [
     location: 'Ara, Bihar',
     result: 'Lost 12kg in 12 weeks',
     weightLoss: '92kg → 80kg',
-    beforeImg: '/rahul_before.webp',
-    afterImg: '/rahul_after.webp',
+    beforeImg: '/rahul_before_new.png',
+    afterImg: '/rahul_after_new.png',
   },
   {
     id: 2,

@@ -44,10 +44,11 @@ export default function Footer() {
           <div className="space-y-6">
             <h4 className="text-white font-bold uppercase tracking-widest text-sm">Quick Links</h4>
             <ul className="space-y-4">
-              <li><a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="text-zinc-400 hover:text-rose-500 transition-colors text-sm">Home</a></li>
-              <li><a href="#transformations" onClick={(e) => scrollToSection('transformations', e)} className="text-zinc-400 hover:text-rose-500 transition-colors text-sm">Transformations</a></li>
-              <li><a href="#pricing" onClick={(e) => scrollToSection('pricing', e)} className="text-zinc-400 hover:text-rose-500 transition-colors text-sm">Pricing Plans</a></li>
-              <li><a href="#contact" onClick={(e) => scrollToSection('contact', e)} className="text-zinc-400 hover:text-rose-500 transition-colors text-sm">Contact Us</a></li>
+              <li><a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="text-zinc-400 hover:text-rose-500 transition-colors text-sm font-medium">Home</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection('services', e)} className="text-zinc-400 hover:text-rose-500 transition-colors text-sm font-medium">Our Services</a></li>
+              <li><a href="#transformations" onClick={(e) => scrollToSection('transformations', e)} className="text-zinc-400 hover:text-rose-500 transition-colors text-sm font-medium">Member Reviews</a></li>
+              <li><a href="#pricing" onClick={(e) => scrollToSection('pricing', e)} className="text-zinc-400 hover:text-rose-500 transition-colors text-sm font-medium">Pricing Plans</a></li>
+              <li><a href="#contact" onClick={(e) => scrollToSection('contact', e)} className="text-zinc-400 hover:text-rose-500 transition-colors text-sm font-medium">Contact Us</a></li>
             </ul>
           </div>
 
