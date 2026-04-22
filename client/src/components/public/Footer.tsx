@@ -27,16 +27,12 @@ export default function Footer() {
             <p className="text-zinc-400 text-sm leading-relaxed">
               Elevating fitness standards in Bihar and beyond. We bring world-class training, state-of-the-art tech, and a premium atmosphere to your daily grind.
             </p>
-            <div className="flex items-center gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-400 hover:bg-rose-600 hover:text-white transition-all">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-400 hover:bg-rose-600 hover:text-white transition-all">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-400 hover:bg-rose-600 hover:text-white transition-all">
-                <Twitter className="w-5 h-5" />
-              </a>
+            <div className="flex items-center gap-3">
+              {[Instagram, Facebook, Twitter].map((Icon, i) => (
+                <a key={i} href="#" className="w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center text-zinc-400 hover:bg-rose-600 hover:text-white hover:-translate-y-1 transition-all duration-300 border border-white/5">
+                  <Icon className="w-5 h-5" />
+                </a>
+              ))}
             </div>
           </div>
 
@@ -62,7 +58,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3 text-zinc-400 text-sm">
                 <Phone className="w-5 h-5 text-rose-600" />
-                <span>+91 99999 99999</span>
+                <span>+91 91999 99999</span>
               </li>
               <li className="flex items-center gap-3 text-zinc-400 text-sm">
                 <Mail className="w-5 h-5 text-rose-600" />
@@ -79,6 +75,7 @@ export default function Footer() {
               <input 
                 type="email" 
                 placeholder="Your email address" 
+                suppressHydrationWarning
                 className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-rose-600 outline-none transition-all text-sm"
               />
               <button className="px-6 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl transition-all">
@@ -93,9 +90,10 @@ export default function Footer() {
           <p className="text-zinc-500 text-xs font-medium">
             &copy; {new Date().getFullYear()} GymOS. All rights reserved. Built with ❤️ by HiTechCrest.
           </p>
-          <div className="flex gap-6">
-             <a href="#" className="text-zinc-500 hover:text-white text-xs font-medium transition-colors">Privacy Policy</a>
-             <a href="#" className="text-zinc-500 hover:text-white text-xs font-medium transition-colors">Terms of Service</a>
+          <div className="flex items-center gap-4 md:gap-6">
+             <a href="#" className="text-zinc-500 hover:text-white text-xs font-bold transition-colors uppercase tracking-widest">Privacy Policy</a>
+             <span className="w-1 h-1 rounded-full bg-zinc-800"></span>
+             <a href="#" className="text-zinc-500 hover:text-white text-xs font-bold transition-colors uppercase tracking-widest">Terms of Service</a>
           </div>
         </div>
       </div>

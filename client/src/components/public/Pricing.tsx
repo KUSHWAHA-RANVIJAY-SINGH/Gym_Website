@@ -49,23 +49,26 @@ export default function Pricing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              whileHover={{ y: -10 }}
-              className={`p-10 rounded-[2.5rem] border ${plan.recommended ? 'border-rose-600 bg-rose-600/5' : 'border-white/5 bg-zinc-900/30'} relative overflow-hidden backdrop-blur-sm`}
+              className={`p-10 rounded-[3rem] border transition-all duration-500 group ${
+                plan.recommended 
+                  ? 'border-rose-500/30 bg-rose-500/5 shadow-[0_20px_50px_-20px_rgba(225,29,72,0.15)] scale-105 z-10' 
+                  : 'border-white/5 bg-zinc-900/30 hover:border-white/10'
+              } relative overflow-hidden backdrop-blur-xl`}
             >
               {plan.recommended && (
-                <div className="absolute top-0 right-0 px-6 py-2 bg-rose-600 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-bl-2xl">
-                  Limited Offer
+                <div className="absolute top-0 right-0 px-8 py-3 bg-rose-600 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-bl-[2rem] shadow-lg">
+                  Most Popular
                 </div>
               )}
-              <h3 className="text-2xl font-black mb-4 uppercase tracking-tight">{plan.name}</h3>
-              <div className="flex items-baseline justify-center gap-1 mb-8">
-                <span className="text-5xl font-black text-white">₹{plan.price}</span>
-                <span className="text-zinc-500 font-bold uppercase text-xs tracking-widest">/{plan.duration}</span>
+              <h3 className="text-xl font-black mb-6 uppercase tracking-[0.2em] text-zinc-500">{plan.name}</h3>
+              <div className="flex items-baseline justify-center gap-1 mb-10">
+                <span className="text-6xl font-black text-white tracking-tighter">₹{plan.price}</span>
+                <span className="text-zinc-500 font-bold uppercase text-[10px] tracking-widest">/{plan.duration}</span>
               </div>
-              <ul className="text-left space-y-5 mb-12">
+              <ul className="text-left space-y-5 mb-14">
                 {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-3 text-zinc-400 font-medium">
-                    <div className="mt-1 w-5 h-5 rounded-full bg-rose-600/10 flex items-center justify-center flex-shrink-0">
+                  <li key={i} className="flex items-start gap-4 text-zinc-400 font-medium text-sm md:text-base group/li">
+                    <div className="mt-1 w-5 h-5 rounded-full bg-rose-500/10 flex items-center justify-center flex-shrink-0 group-hover/li:bg-rose-500/20 transition-colors">
                       <Check className="w-3 h-3 text-rose-500" />
                     </div>
                     <span>{feature}</span>
@@ -74,13 +77,21 @@ export default function Pricing() {
               </ul>
               <button 
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} 
-                className={`w-full py-5 rounded-2xl font-black transition-all duration-300 uppercase tracking-tighter ${plan.recommended ? 'bg-rose-600 hover:bg-rose-700 text-white shadow-[0_10px_30px_-5px_rgba(225,29,72,0.4)]' : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'}`}
+                className={`w-full py-5 md:py-6 rounded-2xl font-black transition-all duration-300 uppercase tracking-tighter text-sm md:text-base relative overflow-hidden active:scale-95 ${
+                  plan.recommended 
+                    ? 'bg-rose-600 hover:bg-rose-700 text-white shadow-[0_15px_40px_-10px_rgba(225,29,72,0.5)]' 
+                    : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'
+                }`}
               >
-                Claim Your Spot
+                <span className="relative z-10">Claim Your Spot</span>
+                {plan.recommended && (
+                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                )}
               </button>
             </motion.div>
           ))}
         </div>
+
         
         <p className="mt-12 text-zinc-600 text-sm font-medium italic">*All memberships include a 1:1 orientation session.</p>
       </div>

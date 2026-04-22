@@ -11,7 +11,7 @@ export default function Contact() {
     e.preventDefault();
     const text = `Namaste! I am ${formData.name}. I want to transform my body with GymOS Elite. ${formData.message}`;
     const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/919999999999?text=${encodedText}`, '_blank');
+    window.open(`https://wa.me/919199999999?text=${encodedText}`, '_blank');
   };
 
   return (
@@ -36,8 +36,8 @@ export default function Contact() {
                   <Phone className="w-8 h-8" />
                 </div>
                 <div>
-                   <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-1">Call Now</p>
-                   <p className="text-2xl font-black text-white">+91 91999 99999</p>
+                   <p className="text-zinc-500 text-xs font-black uppercase tracking-[0.2em] mb-1">Call Our Head Coach</p>
+                   <p className="text-2xl md:text-3xl font-black text-white tracking-tighter">+91 91999 99999</p>
                 </div>
               </div>
               <p className="text-emerald-500 font-bold flex items-center gap-2 justify-center lg:justify-start">
@@ -64,39 +64,50 @@ export default function Contact() {
             className="flex-1 w-full glassmorphism p-8 md:p-12 rounded-[3rem]"
           >
             <form onSubmit={handleWhatsApp} className="space-y-8">
-              <div>
-                <label className="block text-zinc-500 text-xs font-black uppercase tracking-[0.2em] mb-3">FullName</label>
-                <input 
-                  type="text" 
-                  required
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-white focus:border-rose-600 outline-none transition-all placeholder:text-zinc-700 font-medium"
-                  placeholder="e.g. Rahul Kumar"
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em] mb-3 ml-1">Full Name</label>
+                  <input 
+                    type="text" 
+                    required
+                    suppressHydrationWarning
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 md:py-5 text-white focus:border-rose-600 focus:bg-white/[0.08] outline-none transition-all placeholder:text-zinc-700 font-medium"
+                    placeholder="Rahul Kumar"
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em] mb-3 ml-1">Phone Number</label>
+                  <input 
+                    type="tel" 
+                    required
+                    suppressHydrationWarning
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 md:py-5 text-white focus:border-rose-600 focus:bg-white/[0.08] outline-none transition-all placeholder:text-zinc-700 font-medium"
+                    placeholder="+91 XXXXX XXXXX"
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  />
+                </div>
               </div>
               <div>
-                <label className="block text-zinc-500 text-xs font-black uppercase tracking-[0.2em] mb-3">Phone Number</label>
-                <input 
-                  type="tel" 
-                  required
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-white focus:border-rose-600 outline-none transition-all placeholder:text-zinc-700 font-medium"
-                  placeholder="+91 XXXXX XXXXX"
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                />
-              </div>
-              <div>
-                <label className="block text-zinc-500 text-xs font-black uppercase tracking-[0.2em] mb-3">Message (Optional)</label>
+                <label className="block text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em] mb-3 ml-1">Message (Optional)</label>
                 <textarea 
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-12 text-white focus:border-rose-600 outline-none transition-all placeholder:text-zinc-700 font-medium"
-                  placeholder="I want to discuss about..."
+                  suppressHydrationWarning
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-8 md:py-10 text-white focus:border-rose-600 focus:bg-white/[0.08] outline-none transition-all placeholder:text-zinc-700 font-medium min-h-[120px] resize-none"
+                  placeholder="Tell us about your fitness goals..."
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 ></textarea>
               </div>
+              <div className="flex items-center gap-3 px-2">
+                 <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                 <p className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.1em]">Only 4 spots left for this month's intake</p>
+              </div>
               <button 
                 type="submit"
-                className="w-full py-6 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-2xl transition-all flex items-center justify-center gap-4 group shadow-[0_10px_40px_-10px_rgba(225,29,72,0.5)] uppercase tracking-tighter scale-105 active:scale-100"
+                className="w-full py-6 md:py-7 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-2xl transition-all flex items-center justify-center gap-4 group shadow-[0_20px_50px_-15px_rgba(225,29,72,0.6)] uppercase tracking-widest text-sm relative overflow-hidden active:scale-95"
               >
-                WHATSAPP NOW <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <span className="relative z-10 font-black">WHATSAPP NOW</span> 
+                <Send className="w-5 h-5 relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               </button>
             </form>
           </motion.div>

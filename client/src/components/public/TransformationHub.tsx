@@ -63,35 +63,32 @@ function BeforeAfterSlider({ before, after }: { before: string; after: string })
       onMouseMove={handleMove}
       onTouchMove={handleMove}
     >
-      {/* After Image (Full background) */}
       <div 
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
         style={{ backgroundImage: `url(${after})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        <div className="absolute bottom-6 right-6 glassmorphism px-6 py-2 font-bold text-rose-500 text-sm md:text-base border border-rose-500/30">
-          AFTER (12 WEEKS)
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute bottom-6 right-6 glassmorphism-red px-5 py-2 font-black text-rose-500 text-xs md:text-sm border border-rose-500/20 uppercase tracking-[0.1em]">
+          After 90 Days
         </div>
       </div>
 
-      {/* Before Image (Clipped) */}
       <div 
-        className="absolute inset-0 bg-cover bg-center grayscale transition-transform duration-500 group-hover:scale-105"
+        className="absolute inset-0 bg-cover bg-center grayscale transition-transform duration-700 group-hover:scale-110"
         style={{ 
           backgroundImage: `url(${before})`,
           clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        <div className="absolute bottom-6 left-6 glassmorphism px-6 py-2 font-bold text-zinc-400 text-sm md:text-base border border-white/10">
-          BEFORE
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute bottom-6 left-6 glassmorphism px-5 py-2 font-black text-zinc-400 text-xs md:text-sm border border-white/5 uppercase tracking-[0.1em]">
+          Before
         </div>
       </div>
 
-      {/* Instruction text overlay */}
       <div className="absolute top-6 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <span className="glassmorphism px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-white/80 border border-white/10">
-          Drag to see the magic →
+        <span className="glassmorphism px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-white/90 border border-white/10 shadow-2xl">
+          Drag to compare results
         </span>
       </div>
 
@@ -159,22 +156,23 @@ export default function TransformationHub() {
               >
                 <BeforeAfterSlider before={item.beforeImg} after={item.afterImg} />
                 
-                <div className="mt-8 px-2">
-                  <div className="flex justify-between items-start mb-4">
+                <div className="mt-10 px-2 space-y-6">
+                  <div className="flex justify-between items-end">
                     <div>
-                      <h3 className="text-2xl font-black text-white uppercase tracking-tight">{item.name}</h3>
-                      <p className="text-zinc-500 font-medium text-sm tracking-wide">{item.location}</p>
+                      <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none">{item.name}</h3>
+                      <p className="text-zinc-500 font-bold text-xs uppercase tracking-widest mt-2">{item.location}</p>
                     </div>
                     <div className="text-right">
-                      <span className="inline-block bg-rose-600/20 text-rose-500 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-rose-600/20">
+                      <span className="inline-block bg-rose-500/10 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-rose-500/20">
                         {item.result}
                       </span>
                     </div>
                   </div>
                   
-                  <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
-                    <p className="text-rose-500 font-black text-xl md:text-2xl tracking-tighter uppercase italic">
-                      Weight Progress: {item.weightLoss}
+                  <div className="p-6 rounded-[2rem] bg-gradient-to-br from-white/5 to-transparent border border-white/5 group-hover:border-rose-500/20 transition-colors duration-500">
+                    <p className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">Weight Progress</p>
+                    <p className="text-white font-black text-2xl md:text-3xl tracking-tighter uppercase italic">
+                      {item.weightLoss}
                     </p>
                   </div>
                 </div>
