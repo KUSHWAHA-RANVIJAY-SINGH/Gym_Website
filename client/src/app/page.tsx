@@ -8,10 +8,11 @@ import TransformationHub from '@/components/public/TransformationHub';
 import Pricing from '@/components/public/Pricing';
 import Contact from '@/components/public/Contact';
 import StickyCTA from '@/components/public/StickyCTA';
+import FloatingWhatsApp from '@/components/public/FloatingWhatsApp';
 
 export default function Home() {
   return (
-    <main className="bg-black min-h-screen selection:bg-rose-600 selection:text-white">
+    <main className="bg-bg-main text-text-main min-h-screen selection:bg-accent-primary selection:text-bg-main transition-colors duration-500">
       <Header />
       <Hero />
       <Problem />
@@ -22,6 +23,7 @@ export default function Home() {
       <Contact />
       <Footer />
       <StickyCTA />
+      <FloatingWhatsApp />
     </main>
   );
 }

@@ -1,17 +1,90 @@
 @import "tailwindcss";
 
-:root {
-  --background: #050505;
-  --foreground: #ffffff;
-  --primary: #E11D48;
-  --primary-hover: #FB7185;
-  --secondary: #0F172A;
-  --accent: #F43F5E;
+:root, [data-theme="midnight-brass"] {
+  --bg-main: #0E1420;
+  --bg-surface: #1A2235;
+  --accent-primary: #C9A24B;
+  --muted-secondary: #6B7280;
+  --text-main: #F3ECDD;
+  --border-color: rgba(255, 255, 255, 0.05);
+  --shadow-card: none;
+
+  /* Core overrides for components */
+  --background: var(--bg-main);
+  --foreground: var(--text-main);
+  --primary: var(--accent-primary);
+  --primary-hover: #D9B75B;
+  --secondary: var(--bg-surface);
+  --accent: var(--accent-primary);
+}
+
+[data-theme="iron-ember"] {
+  --bg-main: #1B1B1E;
+  --bg-surface: #27272A;
+  --accent-primary: #FF6A39;
+  --muted-secondary: #9AA5B1;
+  --text-main: #F5F3F0;
+  --border-color: rgba(255, 255, 255, 0.05);
+  --shadow-card: none;
+
+  /* Core overrides for components */
+  --background: var(--bg-main);
+  --foreground: var(--text-main);
+  --primary: var(--accent-primary);
+  --primary-hover: #FF855E;
+  --secondary: var(--bg-surface);
+  --accent: var(--accent-primary);
+}
+
+[data-theme="concrete-lime"] {
+  --bg-main: #F8FAFC;          /* Ultra-clean Slate White */
+  --bg-surface: #FFFFFF;       /* Pure White for crisp separation */
+  --text-main: #0F172A;        /* Deep Slate Black for maximum text readability */
+  --muted-secondary: #475569;  /* Highly legible Medium Gray */
+  --accent-primary: #65A30D;   /* Slightly deeper Lime/Green for better visibility */
+  --border-color: #E2E8F0;     /* Soft gray divider lines */
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+
+  /* Core overrides for components */
+  --background: var(--bg-main);
+  --foreground: var(--text-main);
+  --primary: var(--accent-primary);
+  --primary-hover: #4D7C0F;
+  --secondary: var(--bg-surface);
+  --accent: var(--accent-primary);
+}
+
+/* Remap dark-theme utilities to light equivalents when Concrete & Lime is active */
+[data-theme="concrete-lime"] {
+  color: var(--text-main);
+}
+[data-theme="concrete-lime"] .text-white {
+  color: var(--text-main) !important;
+}
+[data-theme="concrete-lime"] .text-zinc-400,
+[data-theme="concrete-lime"] .text-zinc-500 {
+  color: var(--muted-secondary) !important;
+}
+[data-theme="concrete-lime"] .text-white\/60 {
+  color: var(--muted-secondary) !important;
+}
+[data-theme="concrete-lime"] .text-white\/80 {
+  color: var(--text-main) !important;
+}
+[data-theme="concrete-lime"] .border-white\/5,
+[data-theme="concrete-lime"] .border-white\/10 {
+  border-color: var(--border-color) !important;
+}
+
+/* Variable-based shadow helper to automatically apply card shadows on light theme */
+.theme-card-shadow {
+  box-shadow: var(--shadow-card, none);
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -21,6 +94,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glassmorphism {
@@ -45,6 +119,12 @@ body {
 
 .text-gradient-red {
   background: linear-gradient(to bottom right, #E11D48, #F43F5E);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(to bottom right, var(--accent-primary), var(--primary-hover));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -75,4 +155,9 @@ body {
 @keyframes pulse {
   0%, 100% { opacity: 0.15; }
   50% { opacity: 0.3; }
+}
+
+body.mobile-menu-open .sticky-cta,
+body.mobile-menu-open .whatsapp-float {
+  display: none !important;
 }
